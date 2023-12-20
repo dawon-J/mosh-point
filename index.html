@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mosh point</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: blue;
+            overflow: hidden;
+        }
+
+        .logo {
+            width: 30%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .float-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        
+        .float-item {
+        width: 500px;
+        height: 20vh;
+        background-color: blue;
+        font-size: 2rem;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        position: absolute;
+        animation: floatAnimation 8s infinite linear alternate;
+        align-items: center;
+        border: 1.5px solid #AAAAAA;
+        color: #AAAAAA;
+        transition: background-color 0.3s, color 0.3s;
+        cursor: pointer;
+    }
+
+        .float-item:hover {
+        background-color: #AAAAAA;
+        color: blue;
+    }
+
+        .introduction {
+            transform-origin: 0% 0%;
+            animation-delay: 0s;
+        }
+
+        .moshpointing {
+            top: 50%;
+            transform-origin: 100% 0%;
+            animation-delay: 0s;
+        }
+    </style>
+</head>
+<body>
+    <img src="logo.png" class="logo">
+    <div class="float-container" id="float-container">
+        <a href="introduction.html"><div class="float-item introduction">What's Moshpoint?</div></a>
+        <a href="moshpointing.html"><div class="float-item moshpointing">Do Moshpointing Yourself</div></a>
+    </div>
+
+    <script>
+        const floatItems = document.querySelectorAll('.float-item');
+
+        function updateFloatItemTransform() {
+            floatItems.forEach(item => {
+                const randomX = Math.random() * (window.innerWidth - 50);
+                let randomY;
+
+                if (item.classList.contains('introduction')) {
+                    // .introduction은 윈도우의 좌측 상단에서 절반 이상 위쪽에서만 움직임
+                    randomY = Math.random() * (window.innerHeight / 2 - 20);
+                } else if (item.classList.contains('moshpointing')) {
+                    // .moshpointing은 윈도우의 좌측 상단에서 절반 이하 아래쪽에서만 움직임
+                    randomY = Math.random() * (window.innerHeight / 2 - 20);
+                }
+
+                item.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            });
+        }
+
+        setInterval(updateFloatItemTransform, 2000); // 7초 주기로 랜덤 위치로 이동
+        updateFloatItemTransform(); // 초기 위치 설정
+    </script>
+
+    <style>
+        @keyframes floatAnimation {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(${Math.random() * (window.innerWidth - 50)}px, ${Math.random() * (window.innerHeight / 2 - 20)}px);
+            }
+        }
+    </style>
+</body>
+</html>

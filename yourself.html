@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            transform: scaleX(-1); /* 좌우 반전을 위한 CSS 속성 */
+        }
+
+        .logo {
+            width: 250px;
+            position: absolute;
+            top: 50px;
+            left: 50px;
+        }
+
+        div {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+    </style>
+</head>
+<body>
+    <video id="video" autoplay playsinline></video>
+    <a href="index.html"><img class="logo" src="logo-blue.png"></a>
+    <div>
+        이제 이 웹캠이 사람을 인식해서 머 어쩌고저쩌고.. 그런 걸 찾아보려고요..
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const video = document.getElementById("video");
+
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then((stream) => {
+                    video.srcObject = stream;
+                })
+                .catch((error) => {
+                    console.error("Error accessing webcam:", error);
+                });
+        });
+    </script>
+</body>
+</html>
